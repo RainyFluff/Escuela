@@ -8,7 +8,7 @@ public class WARP : MonoBehaviour
     public GameObject MainWorld;
     public GameObject SubWorld;
 
-    
+    bool CurrentState = true;
     
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,8 @@ public class WARP : MonoBehaviour
             MainWorld.SetActive(false);
             SubWorld.SetActive(true);
 
+            
+
         }
         else
         {
@@ -31,6 +33,9 @@ public class WARP : MonoBehaviour
             SubWorld.SetActive(false);
 
         }
+
+       
+
 
 
 

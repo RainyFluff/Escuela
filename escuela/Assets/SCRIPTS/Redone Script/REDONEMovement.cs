@@ -7,10 +7,16 @@ public class REDONEMovement : MonoBehaviour
     [Header("Movement")]
     public float MoveSpeed;
     public float SpeedMultiplier = 10;
+    float playerHeight = 1.5f;
+    public float JumpForce = 5f;
 
     [Header("Drag")]
-    public float rbDrag = 6;
-    
+    public float groundDrag = 6;
+    public float airDrag = 2;
+    [SerializeField] float airMultiplier = 0.4f;
+
+    [Header("Inputs")]
+    [SerializeField] KeyCode jumpkey = KeyCode.Space;
 
     float horizontalMovement;
     float verticalMovement;
@@ -18,6 +24,8 @@ public class REDONEMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    bool IsGrounded;
 
     private void Start()
     {
@@ -27,16 +35,36 @@ public class REDONEMovement : MonoBehaviour
 
     private void Update()
     {
+        IsGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight + 0.1f);
+
         myInput();
         ControlDrag();
+
+        if (Input.GetKeyDown(jumpkey) && IsGrounded)
+        {
+            Jump();
+            
+
+        }
+
+       
     }
 
     void ControlDrag()
     {
-        rb.drag = rbDrag;
+        if (IsGrounded)
+        {
+            rb.drag = groundDrag;
+        }
+        else
+        {
+            rb.drag = airDrag;
+        }
 
     }
 
+
+    
     void myInput()
     {
         horizontalMovement = Input.GetAxisRaw("Horizontal");
@@ -46,14 +74,28 @@ public class REDONEMovement : MonoBehaviour
 
     }
 
+    void Jump()
+    {
+        rb.AddForce(transform.up * JumpForce, ForceMode.Impulse);
+
+    }
     private void FixedUpdate()
     {
         MovePlayer();
+        
     }
 
     void MovePlayer()
     {
-        rb.AddForce(moveDirection.normalized * MoveSpeed * SpeedMultiplier, ForceMode.Acceleration);
+       if (IsGrounded)
+        {
+            rb.AddForce(moveDirection.normalized * MoveSpeed * SpeedMultiplier, ForceMode.Acceleration);
+        }
+        else if (!IsGrounded)
+        {
+            rb.AddForce(moveDirection.normalized * MoveSpeed * SpeedMultiplier * airMultiplier, ForceMode.Acceleration);
+        }
+        
 
     }
 

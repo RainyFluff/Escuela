@@ -21,6 +21,8 @@ public class REDONEMovement : MonoBehaviour
     float horizontalMovement;
     float verticalMovement;
 
+    [SerializeField] Transform Orientation;
+
     Vector3 moveDirection;
 
     Rigidbody rb;
@@ -70,7 +72,7 @@ public class REDONEMovement : MonoBehaviour
         horizontalMovement = Input.GetAxisRaw("Horizontal");
         verticalMovement = Input.GetAxisRaw("Vertical");
 
-        moveDirection = transform.forward * verticalMovement + transform.right * horizontalMovement;
+        moveDirection = Orientation.transform.forward * verticalMovement + Orientation.transform.right * horizontalMovement;
 
     }
 

@@ -8,8 +8,8 @@ public class REDONECAMERACONTROLLER : MonoBehaviour
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
 
-    Camera cam;
-
+    [SerializeField] Transform Cam;
+    [SerializeField] Transform Orientation;
     float mouseX;
     float mouseY;
 
@@ -19,7 +19,7 @@ public class REDONECAMERACONTROLLER : MonoBehaviour
     float yRotation;
     private void Start()
     {
-        cam = GetComponentInChildren<Camera>();
+        
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -29,8 +29,8 @@ public class REDONECAMERACONTROLLER : MonoBehaviour
     {
         MyInput();
 
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
-        transform.rotation = Quaternion.Euler(0, yRotation, 0);
+        Cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        Orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
     void MyInput()

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class REDONECAMERACONTROLLER : MonoBehaviour
 {
+    [SerializeField] Wallrunning WallRun;
+
 
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
@@ -29,7 +31,7 @@ public class REDONECAMERACONTROLLER : MonoBehaviour
     {
         MyInput();
 
-        Cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
+        Cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, WallRun.tilt);
         Orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 

@@ -27,6 +27,7 @@ public class REDONEMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 4f;
     [SerializeField] float sprintSpeed = 6f;
     [SerializeField] float acceleration = 10f;
+    
 
 
     [SerializeField] Transform Orientation;
@@ -91,10 +92,12 @@ public class REDONEMovement : MonoBehaviour
         {
 
             MoveSpeed = Mathf.Lerp(MoveSpeed, sprintSpeed, acceleration * Time.deltaTime);
+            
         }
         else
         {
             MoveSpeed = Mathf.Lerp(MoveSpeed, walkSpeed, acceleration * Time.deltaTime);
+            
         }
     }
     void ControlDrag()

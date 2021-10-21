@@ -29,7 +29,8 @@ public class Wallrunning : MonoBehaviour
 
     public float tilt { get; private set; }
 
-
+    //Alla mina variablar, den första och andra segmenten är för att raycasta, hitta väggar samt att bestämma hoppkraft.
+    //Den sista är helt runtom kamera tilt när man wallrunnar.
 
 
     private Rigidbody rb;
@@ -42,6 +43,7 @@ public class Wallrunning : MonoBehaviour
         wallLeft = Physics.Raycast(transform.position, -orientation.right, out LeftwallHit, wallDistance);
         wallRight = Physics.Raycast(transform.position, orientation.right, out RightwallHit, wallDistance);
     }
+    // checkar om man kan wallwunna eller inte. med en raycast.
 
     private void Start()
     {
@@ -122,5 +124,6 @@ public class Wallrunning : MonoBehaviour
         rb.useGravity = true;
        cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, fov, WallRunfovTime * Time.deltaTime);
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);
+        
     }
 }

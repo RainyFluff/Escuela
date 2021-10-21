@@ -19,12 +19,16 @@ public class REDONECAMERACONTROLLER : MonoBehaviour
 
     float xRotation;
     float yRotation;
+
+    //Alla variabler som används
     private void Start()
     {
         
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        //låser min cursor så att den inte är i vägen.
     }
 
     private void Update()
@@ -33,6 +37,8 @@ public class REDONECAMERACONTROLLER : MonoBehaviour
 
         Cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, WallRun.tilt);
         Orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
+
+        //Håller koll på vår rotation och ser till att den följer vår Orientations rotation där det behövs, men fortfarande följer vår Kameras localrotation.
     }
 
     void MyInput()
@@ -44,6 +50,8 @@ public class REDONECAMERACONTROLLER : MonoBehaviour
         xRotation -= mouseY * sensY * multiplier;
 
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+        //sätter clamps för att limita Kameran och bestämmer input för min kamera.
     }
 
 

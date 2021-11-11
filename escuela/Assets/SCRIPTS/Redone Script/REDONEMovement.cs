@@ -62,7 +62,7 @@ public class REDONEMovement : MonoBehaviour
 
     }
     private void Start()
-    {
+    {     
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }

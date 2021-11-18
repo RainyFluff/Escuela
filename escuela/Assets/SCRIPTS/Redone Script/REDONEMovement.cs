@@ -14,6 +14,8 @@ public class REDONEMovement : MonoBehaviour
     public float groundDrag = 6;
     public float airDrag = 2;
     [SerializeField] float airMultiplier = 0.4f;
+    public float Gravity = -30;
+    public float GravityMultiplier = 1;
 
     [Header("Inputs")]
     [SerializeField] KeyCode jumpkey = KeyCode.Space;
@@ -65,6 +67,8 @@ public class REDONEMovement : MonoBehaviour
     {     
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+
+        
     }
 
     private void Update()
@@ -109,12 +113,15 @@ public class REDONEMovement : MonoBehaviour
         else
         {
             rb.drag = airDrag;
+            
+            
+            
         }
 
+       
     }
 
-
-    
+   
     void myInput()
     {
         horizontalMovement = Input.GetAxisRaw("Horizontal");
@@ -133,6 +140,8 @@ public class REDONEMovement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+
+       
         
     }
 
@@ -150,9 +159,17 @@ public class REDONEMovement : MonoBehaviour
        {
             rb.AddForce(moveDirection.normalized * MoveSpeed * SpeedMultiplier * airMultiplier, ForceMode.Acceleration);
        }
+       else if (rb.velocity.y > 0.01f)
+        {
+            GravityController();
+        }
         
 
     }
 
+    void GravityController()
+    {
+        rb.AddForce(transform.up * Gravity , ForceMode.Acceleration);
+    }
 
 }

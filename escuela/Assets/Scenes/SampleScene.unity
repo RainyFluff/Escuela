@@ -1326,7 +1326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83a68f9d170b32e4a962f8818d9b2eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Orientation: {fileID: 0}
+  Orientation: {fileID: 493122236}
   Range: 40
   Damage: 10
 --- !u!1 &1011566509
@@ -2254,9 +2254,11 @@ MonoBehaviour:
   MoveSpeed: 20
   SpeedMultiplier: 10
   JumpForce: 16
-  groundDrag: 6
-  airDrag: 2
-  airMultiplier: 0.4
+  groundDrag: 5
+  airDrag: 1
+  airMultiplier: 0.2
+  Gravity: -30
+  GravityMultiplier: 2
   jumpkey: 32
   sprintkey: 304
   walkSpeed: 10
@@ -2293,7 +2295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002393808}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.69, z: -0.12435588}
+  m_LocalPosition: {x: 0, y: 3.47, z: -2.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1226906238}
@@ -2459,7 +2461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2134316512}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 5.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}

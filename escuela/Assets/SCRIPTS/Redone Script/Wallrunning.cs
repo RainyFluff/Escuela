@@ -104,6 +104,8 @@ public class Wallrunning : MonoBehaviour
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.y);
 
                 rb.AddForce(WallRunJumpDirection * WallrunningJumpForce * 100, ForceMode.Force);
+
+               
             }
 
             if (wallRight)
@@ -114,6 +116,7 @@ public class Wallrunning : MonoBehaviour
 
                 rb.AddForce(WallRunJumpDirection * WallrunningJumpForce * 100, ForceMode.Force);
 
+               
             }
 
         }

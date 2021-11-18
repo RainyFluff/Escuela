@@ -14,6 +14,8 @@ public class Sword1 : MonoBehaviour
     public float Range = 40f;
 
     public float Damage = 10f;
+
+    bool IsBlocking = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,17 @@ public class Sword1 : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             attack();
+        }
+
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
+            print("Blocking");
+            blocking();
+        }
+        else
+        {
+            unblock();
+           
         }
     }
 
@@ -52,6 +65,17 @@ public class Sword1 : MonoBehaviour
 
         
 
+    }
+
+    void blocking()
+    {
+        IsBlocking = true;
+
+       
+    }
+    void unblock()
+    {
+        IsBlocking = false;
     }
 
 }

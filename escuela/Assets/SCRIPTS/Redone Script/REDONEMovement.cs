@@ -46,6 +46,17 @@ public class REDONEMovement : MonoBehaviour
 
     RaycastHit slopeHit;
 
+    [Header("Dashing")]
+    public float DashForceGround = 100;
+    public float DashForceAir = 10;
+    public float CoolDownTime;
+    float NextUseTime;
+
+    [Header("Crouching")]
+    public GameObject Player;
+   
+    //En fukton med variabler har nämt dom så bra jag kan.
+
     private bool OnSlope()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight + 0.5f))
@@ -63,11 +74,12 @@ public class REDONEMovement : MonoBehaviour
         return false;
 
     }
+    //En groundcheck för slopes en vanlig groundcheck är bara rak raycast ner i marken vilket kan leda till deadzone.
     private void Start()
     {     
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
+        //Hittar rigidbody och fryser rotation.
         
     }
 
@@ -79,6 +91,25 @@ public class REDONEMovement : MonoBehaviour
         ControlDrag();
         ControlSpeed();
 
+        //Funktioner som kallas för rörelse
+        //Isgrounded ovan.
+       if (Time.time > NextUseTime)
+        {
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && IsGrounded)
+            {
+                DashGround();
+                NextUseTime = Time.time + CoolDownTime;
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && !IsGrounded)
+            {
+                DashAir();
+                NextUseTime = Time.time + CoolDownTime;
+            }
+            //Dash funktion med tid och cooldown.
+        }
+        
         if (Input.GetKeyDown(jumpkey) && IsGrounded)
         {
             Jump();
@@ -87,9 +118,19 @@ public class REDONEMovement : MonoBehaviour
         }
 
         slopemoveDirection = Vector3.ProjectOnPlane(moveDirection, slopeHit.normal);
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            StartCrouch();
+        }
+        else
+        {
+            StopCrouch();
+        }
        
     }
 
+    
     void ControlSpeed()
     {
         if (Input.GetKey(sprintkey) && IsGrounded)
@@ -103,6 +144,7 @@ public class REDONEMovement : MonoBehaviour
             MoveSpeed = Mathf.Lerp(MoveSpeed, walkSpeed, acceleration * Time.deltaTime);
             
         }
+        //Kontroller min hastighet så att jag inte råkar phasea igenom verkligheten så som vi forstår den.
     }
     void ControlDrag()
     {
@@ -129,13 +171,14 @@ public class REDONEMovement : MonoBehaviour
 
         moveDirection = Orientation.transform.forward * verticalMovement + Orientation.transform.right * horizontalMovement;
 
+        //Bestämmer input-keys för movement
     }
 
     void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(transform.up * JumpForce, ForceMode.Impulse);
-
+        //Hoppar med hjälp av en addforce
     }
     private void FixedUpdate()
     {
@@ -163,13 +206,44 @@ public class REDONEMovement : MonoBehaviour
         {
             GravityController();
         }
-        
+       //Bestämmer hastighet/ gravitation
 
     }
 
     void GravityController()
     {
-        rb.AddForce(transform.up * Gravity , ForceMode.Acceleration);
+        rb.AddForce(transform.up* Gravity , ForceMode.Acceleration);
+
     }
 
+    void DashGround()
+    {
+        rb.AddForce(Orientation.transform.forward * DashForceGround, ForceMode.Impulse);
+    }
+
+    void DashAir()
+    {
+        rb.AddForce(Orientation.transform.forward * DashForceAir, ForceMode.Impulse);
+
+    }
+    //En för dasha i luften (mindre motstånd kräver mindre kraft)
+    //En för mark (friktion kräver mer kraft)
+    void StartCrouch()
+    {
+        //Lower height of player
+        transform.localScale = new Vector3(1, 0.5f, 1);
+        //Decrease moveSpeed
+       
+        //Decrease Drag
+    }
+
+    void StopCrouch()
+    {
+        //Lower height of player
+        transform.localScale = new Vector3(1, 1, 1);
+        //Increase moveSpeed
+        
+        //Increase Drag
+    }
+    //En crouch funktion som inte är klar ännu
 }

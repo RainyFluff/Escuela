@@ -14,7 +14,7 @@ public class Wallrunning : MonoBehaviour
 
 
     bool wallLeft = false;
-    bool wallRight = true;
+    bool wallRight = false;
     RaycastHit LeftwallHit;
     RaycastHit RightwallHit;
 
@@ -37,6 +37,7 @@ public class Wallrunning : MonoBehaviour
     bool CanWallRun()
     {
         return !Physics.Raycast(transform.position, Vector3.down, minimumJumpHeight);
+        
     }
     void CheckWall()
     {
@@ -48,10 +49,12 @@ public class Wallrunning : MonoBehaviour
     private void Start()
     {
         rb = GetComponentInChildren<Rigidbody>();
+        //Hämtar rigidbody från spelare
     }
     private void Update()
     {
         CheckWall();
+
 
         if (CanWallRun())
         {
@@ -68,6 +71,7 @@ public class Wallrunning : MonoBehaviour
             else
             {
                 StopWallRun();
+                
             }
             
             
@@ -79,7 +83,7 @@ public class Wallrunning : MonoBehaviour
             StopWallRun();
         }
     }
-
+    //Checkar för väggar och kör en funktion baserat på om det finns en.
 
 
     void StartWallRun()
@@ -89,12 +93,12 @@ public class Wallrunning : MonoBehaviour
         rb.AddForce(Vector3.down * WallrunningGravity, ForceMode.Force);
 
         cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, WallRunfov, WallRunfovTime * Time.deltaTime);
-
+        
         if (wallLeft)
             tilt = Mathf.Lerp(tilt, -camTilt, camTiltTime * Time.deltaTime);
         else if (wallRight)
             tilt = Mathf.Lerp(tilt, camTilt, camTiltTime * Time.deltaTime);
-
+            
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (wallLeft)
@@ -121,6 +125,9 @@ public class Wallrunning : MonoBehaviour
 
         }
     }
+    //Själva wallrunfunktionen, om ett föremål är nära nog spelare åt antingen höger eller vänster så saktas dess gravitations kraft ner drastiskt och de kan gå längs med väggen.
+    //Hoppet beräknas med hjälp av vektor-geometri dvs att väggen är vänster och hoppet ska upp då blir vektorn snett uppåt åt vänster, efteråt så invertas detta hoppet och hoppet blir åt motsatt håll jämfört med väggen.
+    //Tiltar kameran.
 
     void StopWallRun()
     {
@@ -129,4 +136,7 @@ public class Wallrunning : MonoBehaviour
         tilt = Mathf.Lerp(tilt, 0, camTiltTime * Time.deltaTime);
         
     }
+    //Stoppar wallrun och skickar tillbaka kameran till sin ursprungliga position.
+    //Fun fact om man har på interpolation på karaktären så får kameran en cp/ptsd/epilepsi attack och skakar när man når en viss hastighet (vet inte vilken)
+    //Detta är eftersom att funktionen använder en Lerp (Linear interpolation) vilket leder till en clash med interpolation och linjär interpolation.
 }

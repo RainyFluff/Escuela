@@ -23,5 +23,7 @@ public class Target : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    //En simpel target, interact med Sword1, förstör ett objekt efter det har tagit en viss mängd "skada".
 }
 

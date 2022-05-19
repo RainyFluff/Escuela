@@ -16,6 +16,9 @@ public class Sword1 : MonoBehaviour
     public float Damage = 10f;
 
     bool IsBlocking = false;
+
+    //Variabler
+
     // Start is called before the first frame update
     void Start()
     {
@@ -62,7 +65,7 @@ public class Sword1 : MonoBehaviour
         }
 
         
-
+        //Attacken i sig självt enbart nummer och raycasten inga animationer.
         
 
     }
@@ -77,5 +80,5 @@ public class Sword1 : MonoBehaviour
     {
         IsBlocking = false;
     }
-
+    //Framework för en blocking funktion
 }
